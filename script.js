@@ -37,18 +37,37 @@ inputValues.forEach((input) => {
 
     if (!amount && r && nthRoot && totalInterest) {
       const rateValue = (principalValue + r / percent) ** nthRoot;
+      divideNumerator = totalInterest;
+      divideDenominator = "Amt";
+      numeratorRootValue = parseFloat(
+        divideNumerator ** (numValue / nthRoot)
+      ).toFixed(3);
+      denominatorRootValue = "Amt";
+
+      // totalInterest = parseFloat(amount * rateValue).toFixed(1);
       amount = parseFloat(totalInterest / rateValue).toFixed(1);
       percentageRate = r;
     }
     if (!totalInterest && amount && r && nthRoot) {
       const rateValue = (principalValue + r / percent) ** nthRoot;
+      divideNumerator = "Int";
+      divideDenominator = amount;
+      numeratorRootValue = "Int";
+      denominatorRootValue = parseFloat(
+        divideDenominator ** (numValue / nthRoot)
+      ).toFixed(3);
+
       totalInterest = parseFloat(amount * rateValue).toFixed(1);
       percentageRate = r;
     }
     if (!nthRoot && amount && r && totalInterest) {
       const result = totalInterest / amount;
       const base = principalValue + r / percent;
-      nthRoot = Math.log(result) / Math.log(base);
+      divideNumerator = totalInterest;
+      divideDenominator = amount;
+      nthRoot = (Math.log(result) / Math.log(base)).toFixed(1);
+      numeratorRootValue = nthRoot + "✓" + divideNumerator;
+      denominatorRootValue = nthRoot + "✓" + divideDenominator;
       percentageRate = r;
     }
     if (!r && amount && nthRoot && totalInterest) {
